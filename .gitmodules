@@ -1,0 +1,6 @@
+[submodule "backend"]
+	path = backend
+	url = git@github.com:gntzh/fastapi-tmpl.git
+[submodule "frontend"]
+	path = frontend
+	url = git@github.com:gntzh/vue-admin-tmpl.git
