@@ -1,0 +1,4 @@
+[http.middlewares.backend-strip-prefix.stripPrefix]
+prefixes = ["/api/"]
+[http.middlewares.tasks-strip-prefix.stripPrefix]
+prefixes = ["/tasks/"]

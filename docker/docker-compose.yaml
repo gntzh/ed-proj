@@ -1,0 +1,109 @@
+version: "3.9"
+
+volumes:
+  db-data:
+networks:
+  traefik-public:
+    external: true
+
+services:
+  reverse-proxy:
+    image: traefik:v2.5
+    networks:
+      - traefik-public
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/traefik.toml
+      - ./traefik-dynamic.toml:/traefik-dynamic/traefik-dynamic.toml
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    networks:
+      - traefik-public
+    # depends_on:
+      # - db
+    environment:
+      ASGI_ROOT_PATH: /api
+    env_file:
+      - .env
+      - .env.local
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
+        # http
+      - traefik.http.routers.backend-http.entrypoints=web
+      - traefik.http.routers.backend-http.rule=PathPrefix(`/api/`)
+      - traefik.http.routers.backend-http.middlewares=backend-strip-prefix@file
+      # https
+      - traefik.http.routers.backend-https.entrypoints=websecure
+      - traefik.http.routers.backend-https.tls=true
+      - traefik.http.routers.backend-https.rule=PathPrefix(`/api/`)
+      - traefik.http.routers.backend-https.middlewares=backend-strip-prefix@file
+  tasks:
+    build:
+      context: ../tasks
+      dockerfile: Dockerfile
+    networks:
+      - traefik-public
+    # depends_on:
+      # - db
+    environment:
+      ASGI_ROOT_PATH: /tasks
+    env_file:
+      - .env.tasks
+      - .env.tasks.local
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
+        # http
+      - traefik.http.routers.tasks-http.entrypoints=web
+      - traefik.http.routers.tasks-http.rule=PathPrefix(`/tasks/`)
+      - traefik.http.routers.tasks-http.middlewares=tasks-strip-prefix@file
+      # https
+      - traefik.http.routers.tasks-https.entrypoints=websecure
+      - traefik.http.routers.tasks-https.tls=true
+      - traefik.http.routers.tasks-https.rule=PathPrefix(`/tasks/`)
+      - traefik.http.routers.tasks-https.middlewares=tasks-strip-prefix@file
+  celery:
+    build:
+      context: ../tasks
+      dockerfile: celery.dockerfile
+    # depends_on:
+      # - db
+    environment:
+      ASGI_ROOT_PATH: /tasks
+    env_file:
+      - .env.tasks
+      - .env.tasks.local
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    networks:
+      - traefik-public
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
+      - traefik.http.services.frontend.loadbalancer.server.port=80
+      # http
+      - traefik.http.routers.frontend-http.entrypoints=web
+      - traefik.http.routers.frontend-http.rule=PathPrefix(`/`)
+      # https
+      - traefik.http.routers.frontend-https.entrypoints=websecure
+      - traefik.http.routers.frontend-https.rule=PathPrefix(`/`)
+      - traefik.http.routers.frontend-https.tls=true
+  # db:
+  #   image: postgres:13
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #   environment:
+  #     LANG: C.UTF-8
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+
