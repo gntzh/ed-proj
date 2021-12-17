@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "xdu-proj-docs"
+version = "0.1.0"
+description = ""
+authors = ["Grant Zhang <grant.zhang.s@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+mkdocs = "^1.2.3"
+mkdocs-material = "^7.3.6"
+
+
+[[tool.poetry.source]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
