@@ -1,6 +1,8 @@
 site_name: 基于Web的通用系统后端和管理界面
 site_author: Grant Zhang
 site_dir: dist
+repo_url: https://github.com/gntzh/ed-proj/
+edit_uri: edit/main/docs/docs/
 copyright: MIT Licensed | Copyright © 2021 Grant Zhang
 theme:
   name: material
@@ -19,7 +21,9 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/gntzh
 nav:
-  - 快速开始:
-      - guides/index.md
-      - guides/deployment.md
-  - about.md
+  - 介绍:
+      - guides/quick-start.md
+      - 部署: guides/deployment.md
+  - 关于: about.md
+markdown_extensions:
+  - attr_list
