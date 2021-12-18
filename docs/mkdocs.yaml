@@ -23,7 +23,7 @@ extra:
 nav:
   - 介绍:
       - guides/quick-start.md
-      - 部署: guides/deployment.md
-  - 关于: about.md
+      - guides/deployment.md
+  - about.md
 markdown_extensions:
   - attr_list
