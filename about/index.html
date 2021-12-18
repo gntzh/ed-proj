@@ -289,7 +289,7 @@
   
     <li class="md-nav__item">
       <a href="../guides/deployment/" class="md-nav__link">
-        部署
+        Deployment
       </a>
     </li>
   
@@ -319,9 +319,47 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          关于
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         关于
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    并不完善
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    遗憾
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -347,6 +385,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    并不完善
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    遗憾
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -363,6 +423,25 @@
 
 
 <h1 id="_1">关于</h1>
+<p>这是一项工程设计的作业。</p>
+<h2 id="_2">并不完善</h2>
+<p>因为时间所限，有不少工作没有完成。</p>
+<ol>
+<li>DDD 改造不彻底
+   domain 层仍然没有承担所有核心的逻辑，并因为应用层和 UI 层合并，逻辑泄露到 UI 层。</li>
+<li>测试不完善
+   时间所限，Api 测试没有写完，而且很多 Api 是赶工做出来的。</li>
+<li>异常处理没有做好
+   异常应该作为域事件的一部分，考虑使用<a href="https://returns.readthedocs.io/en/latest/pages/result.html">returns</a>来处理异常和域事件，时间限制，这件事只能推到以后了。</li>
+<li>DI 改造不彻底
+   在中途引入了依赖注入框架，但是改造不彻底</li>
+<li>前端没有做多页签
+   这一功能还是很实用、通用的。</li>
+<li>Forward Auth 没有做
+   利用 traefik 的 forward auth 中间件可以使用户系统作为子服务独立运行，为其他服务提供认证功能，仍为时间所限，来不及做了。</li>
+</ol>
+<h2 id="_3">遗憾</h2>
+<p>时间太紧了，做的很匆忙，代码质量不高，有点烂尾；前端选型举棋不定，Vue、React 反复，应该尝试以下 React；Celery 和 Airflow、Faust 选型不定，当然他们的角色并不完全相同，但是 Airflow 的 zero-scale 在使用 k8s 时是很好的。</p>
 
               
             </article>
@@ -381,7 +460,7 @@
     <nav class="md-footer__inner md-grid" aria-label="页脚">
       
         
-        <a href="../guides/deployment/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 部署" rel="prev">
+        <a href="../guides/deployment/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Deployment" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -390,7 +469,7 @@
               <span class="md-footer__direction">
                 上一页
               </span>
-              部署
+              Deployment
             </div>
           </div>
         </a>
