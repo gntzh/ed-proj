@@ -21,7 +21,7 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/gntzh
 nav:
-  - 介绍:
+  - 开始:
       - guides/quick-start.md
       - guides/deployment.md
   - about.md
